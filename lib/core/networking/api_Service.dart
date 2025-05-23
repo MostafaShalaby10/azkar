@@ -8,7 +8,7 @@ class ApiService {
 
   ApiService(this._dio);
 
-  Future getResponse({required LocationData location}) async {
+  Future getResponse({required LocationData location }) async {
     return await _dio.get(
       "$baseURL$date",
       queryParameters: {

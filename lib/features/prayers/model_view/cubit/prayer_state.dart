@@ -12,6 +12,5 @@ final class SuccessfullyGetPrayerTime extends PrayerState {}
 final class ErrorGetPrayerTime extends PrayerState {
   final String error;
 
-  ErrorGetPrayerTime({required this.error}); 
-
+  ErrorGetPrayerTime({required this.error});
 }

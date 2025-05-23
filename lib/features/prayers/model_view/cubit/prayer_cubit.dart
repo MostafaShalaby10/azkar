@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:azkar/features/prayers/model/prayer_repo_interface.dart';
-import 'package:bloc/bloc.dart';
+import 'package:azkar/features/prayers/model/repos/prayer_repo_interface.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+
 
 part 'prayer_state.dart';
 

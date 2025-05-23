@@ -1,7 +1,6 @@
 import 'package:azkar/core/utils/service_locator.dart';
-import 'package:azkar/core/widgets/custom_button_widget.dart';
 import 'package:azkar/core/widgets/custom_text_widget.dart';
-import 'package:azkar/features/prayers/model/prayer_repo_imp.dart';
+import 'package:azkar/features/prayers/model/repos/prayer_repo_imp.dart';
 import 'package:azkar/features/prayers/model_view/cubit/prayer_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

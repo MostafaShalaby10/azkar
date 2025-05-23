@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:azkar/core/utils/shared_prefrences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -10,17 +12,26 @@ class LocalNotificationService {
   // For solving errors in receive background notification
   static onNotification(NotificationResponse notificationResponse) {}
   static Future init() async {
-    InitializationSettings initializationSettings =
-        const InitializationSettings(
-          android: AndroidInitializationSettings('@mipmap/ic_launcher'),
-          iOS: DarwinInitializationSettings(),
-        );
-    await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
+    PermissionStatus status = await Permission.notification.request();
+    if (status.isGranted) {
+    await  SharedPrefs.saveData(key: "notifications", value: true);
+      InitializationSettings initializationSettings =
+          const InitializationSettings(
+            android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+            iOS: DarwinInitializationSettings(),
+          );
+      await flutterLocalNotificationsPlugin.initialize(
+        initializationSettings,
 
-      onDidReceiveBackgroundNotificationResponse: onNotification,
-      onDidReceiveNotificationResponse: onNotification,
-    );
+        onDidReceiveBackgroundNotificationResponse: onNotification,
+        onDidReceiveNotificationResponse: onNotification,
+      );
+    } else {
+   await   SharedPrefs.saveData(key: "notifications", value: false);
+    }
+  }
+ static void cancelNotification() async {
+    await flutterLocalNotificationsPlugin.cancelAll();
   }
 
   static void showSimpleNotification() async {
@@ -51,17 +62,22 @@ class LocalNotificationService {
     );
   }
 
-  static void showScheduleNotificationForAzan(int id, int seconds) async {
-    NotificationDetails notificationDetails = NotificationDetails(
-      android: AndroidNotificationDetails(
+  static void showScheduleNotificationForAzan({
+    required int id,
+    required String body,
+    required int hour,
+    required int minute,
+  }) async {
+    NotificationDetails notificationDetails = const NotificationDetails(
+      android: const AndroidNotificationDetails(
         "1",
         "High Importance Notifications",
         importance: Importance.max,
         priority: Priority.high,
         icon: '@mipmap/ic_launcher',
-        sound: RawResourceAndroidNotificationSound("azan.wav".split('.').first),
+        // sound: RawResourceAndroidNotificationSound("azan"),
       ),
-      iOS: const DarwinNotificationDetails(
+      iOS: DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
@@ -75,12 +91,13 @@ class LocalNotificationService {
       currentTime.year,
       currentTime.month,
       currentTime.day,
-      15,
-      08
+      hour,
+      minute,
     );
     if (scheduleTime.isBefore(currentTime)) {
       scheduleTime = scheduleTime.add(const Duration(days: 1));
     }
+    log("-----------------------------$body-----------------------------");
     log(currentTime.day.toString());
     log(currentTime.hour.toString());
     log(currentTime.minute.toString());
@@ -90,8 +107,8 @@ class LocalNotificationService {
     log(scheduleTime.minute.toString());
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
-      "$seconds",
-      " message.notification!.body",
+      "الصلاه عماد الدين",
+      body,
       scheduleTime,
       notificationDetails,
       androidScheduleMode: AndroidScheduleMode.alarmClock,

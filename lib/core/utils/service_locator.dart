@@ -1,5 +1,5 @@
 import 'package:azkar/features/azkar/model/azkar_repo_imp.dart';
-import 'package:azkar/features/prayers/model/prayer_repo_imp.dart';
+import 'package:azkar/features/prayers/model/repos/prayer_repo_imp.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:workmanager/workmanager.dart';
@@ -10,7 +10,6 @@ import 'hive_service.dart';
 
 final getIt = GetIt.instance;
 void setup() {
-  final getIt = GetIt.instance;
   getIt.registerLazySingleton(() => Dio());
   getIt.registerLazySingleton(() => ApiService(getIt<Dio>()));
   getIt.registerLazySingleton(() => HiveService());

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:azkar/core/widgets/custom_text_widget.dart';
 import 'package:azkar/features/azkar/view/azkar_view.dart';
 import 'package:azkar/features/sebha/view/sebha_view.dart';
@@ -7,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../notification/views/notification_settings.dart';
 import '../../prayers/view/prayer_time_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -27,6 +26,21 @@ class HomeView extends StatelessWidget {
       "assets/tasbih.svg",
     ];
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NotificationSettings(),
+                ),
+              );
+            },
+            child: Text("Not"),
+          ),
+        ],
+      ),
       backgroundColor: Colors.white24,
       body: Stack(
         alignment: Alignment.center,
@@ -68,7 +82,7 @@ class HomeView extends StatelessWidget {
                             );
                           } else {
                             // Handle the action for the last item
-                             Navigator.push(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const SebhaView(),
