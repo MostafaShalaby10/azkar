@@ -33,11 +33,11 @@ class HomeView extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => NotificationSettings(),
+                  builder: (context) => const NotificationSettings(),
                 ),
               );
             },
-            child: Text("Not"),
+            child: const Text("Not"),
           ),
         ],
       ),

@@ -14,7 +14,7 @@ class LocalNotificationService {
   static Future init() async {
     PermissionStatus status = await Permission.notification.request();
     if (status.isGranted) {
-    await  SharedPrefs.saveData(key: "notifications", value: true);
+      await SharedPrefs.saveData(key: "notifications", value: true);
       InitializationSettings initializationSettings =
           const InitializationSettings(
             android: AndroidInitializationSettings('@mipmap/ic_launcher'),
@@ -27,10 +27,11 @@ class LocalNotificationService {
         onDidReceiveNotificationResponse: onNotification,
       );
     } else {
-   await   SharedPrefs.saveData(key: "notifications", value: false);
+      await SharedPrefs.saveData(key: "notifications", value: false);
     }
   }
- static void cancelNotification() async {
+
+  static void cancelNotification() async {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
@@ -69,13 +70,17 @@ class LocalNotificationService {
     required int minute,
   }) async {
     NotificationDetails notificationDetails = const NotificationDetails(
-      android: const AndroidNotificationDetails(
+      android: AndroidNotificationDetails(
         "1",
         "High Importance Notifications",
         importance: Importance.max,
         priority: Priority.high,
         icon: '@mipmap/ic_launcher',
         // sound: RawResourceAndroidNotificationSound("azan"),
+        // playSound: true,
+        // enableVibration: true,
+        // fullScreenIntent: true,
+        // channelDescription: "channelDescription",
       ),
       iOS: DarwinNotificationDetails(
         presentAlert: true,

@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'package:animated_toggle_switch/animated_toggle_switch.dart';
-import 'package:azkar/core/utils/shared_prefrences.dart';
 import 'package:azkar/core/widgets/custom_text_widget.dart';
 import 'package:azkar/features/notification/model_view/cubit/notification_cubit.dart';
 import 'package:flutter/material.dart';

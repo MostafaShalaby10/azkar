@@ -2,10 +2,8 @@ import 'dart:developer';
 
 import 'package:azkar/core/notification/work_manager_service.dart';
 import 'package:azkar/core/utils/shared_prefrences.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../core/notification/local_notification_service.dart';
