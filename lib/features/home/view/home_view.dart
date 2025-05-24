@@ -26,21 +26,6 @@ class HomeView extends StatelessWidget {
       "assets/tasbih.svg",
     ];
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationSettings(),
-                ),
-              );
-            },
-            child: const Text("Not"),
-          ),
-        ],
-      ),
       backgroundColor: Colors.white24,
       body: Stack(
         alignment: Alignment.center,
@@ -51,73 +36,83 @@ class HomeView extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
           ),
-          Positioned(
-            child: SizedBox(
-              width: double.infinity,
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: images.length,
-                itemBuilder:
-                    (context, index) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: () {
-                          if (index < 2) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder:
-                                    (context) => AzkarView(
-                                      isMorning: index == 0 ? true : false,
-                                    ),
-                              ),
-                            );
-                          } else if (index == 2) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const PrayerTimeView(),
-                              ),
-                            );
-                          } else {
-                            // Handle the action for the last item
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SebhaView(),
-                              ),
-                            );
-                          }
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.black, width: 1.w),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: images.length,
+            itemBuilder:
+                (context, index) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () {
+                      if (index < 2) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => AzkarView(
+                                  isMorning: index == 0 ? true : false,
+                                ),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                images[index],
-                                fit: BoxFit.cover,
-                                width: 70.w,
-                                height: 70.h,
-                                // color: Colors.amber,
-                              ),
-                              CustomTextWidget(
-                                textAlign: TextAlign.center,
-                                text: titles[index],
-                                fontSize: 24,
-                                fontWeight: FontWeight.w900,
-                                // textColor: Colors.white,
-                              ),
-                            ],
+                        );
+                      } else if (index == 2) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PrayerTimeView(),
                           ),
-                        ),
+                        );
+                      } else {
+                        // Handle the action for the last item
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SebhaView(),
+                          ),
+                        );
+                      }
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.black, width: 1.w),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            images[index],
+                            fit: BoxFit.cover,
+                            width: 70.w,
+                            height: 70.h,
+                            // color: Colors.amber,
+                          ),
+                          CustomTextWidget(
+                            textAlign: TextAlign.center,
+                            text: titles[index],
+                            fontSize: 24,
+                            fontWeight: FontWeight.w900,
+                            // textColor: Colors.white,
+                          ),
+                        ],
                       ),
                     ),
-              ),
+                  ),
+                ),
+          ),
+          Positioned(
+            top: 50.h,
+            right: 10.w,
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const NotificationSettings(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.notifications_outlined, size: 30),
             ),
           ),
         ],

@@ -40,7 +40,6 @@ dependencies:
   get_it: ^8.0.3
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  just_audio: ^0.10.3
   location: ^8.0.0
   permission_handler: ^12.0.0+1
   shared_preferences: ^2.5.3
@@ -67,7 +66,7 @@ flutter:
   assets:
     - assets/
     - assets/azkar/
-    - assets/audio/azan.mp3
+    # - assets/audio/azan.mp3
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see

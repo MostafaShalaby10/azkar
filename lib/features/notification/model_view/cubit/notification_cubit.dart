@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:azkar/core/notification/work_manager_service.dart';
 import 'package:azkar/core/utils/shared_prefrences.dart';
 import 'package:flutter/material.dart';
@@ -31,13 +29,12 @@ class NotificationCubit extends Cubit<NotificationState> {
 
   void changeToogleValue() async {
     if (await Permission.notification.isGranted) {
-      log("Approved");
       toogleValue = !toogleValue;
-      if(!toogleValue){
+      if (!toogleValue) {
         WorkManagerService.cancelTask();
-      }else{
+      } else {
         await WorkManagerService().init();
-              getTimeNotification();
+        getTimeNotification();
       }
 
       await SharedPrefs.saveData(key: "notifications", value: toogleValue);
@@ -65,51 +62,38 @@ class NotificationCubit extends Cubit<NotificationState> {
   int morningMinute = 0;
   int eveningMinute = 0;
   Future getTimeNotification() async {
-    eveningHour = await SharedPrefs.getData(key: "eveninggHour") ?? 19;
+    eveningHour = await SharedPrefs.getData(key: "eveningHour") ?? 19;
     eveningMinute = await SharedPrefs.getData(key: "eveningMinutes") ?? 00;
-    morningHour = await SharedPrefs.getData(key: "morningHour") ?? 19;
+    morningHour = await SharedPrefs.getData(key: "morningHour") ?? 7;
     morningMinute = await SharedPrefs.getData(key: "morningMinutes") ?? 00;
     // emit(GetNotificationTimeState());
   }
 
-  Future changeTimeOfMorningNotification(TimeOfDay time) async{
-    await SharedPrefs.saveData(
-      key: "morningHour",
-      value: time.hour,
-    );
-    await SharedPrefs.saveData(
-      key: "morningMinutes",
-      value: time.minute,
-    );
+  Future changeTimeOfMorningNotification(TimeOfDay time) async {
+    await SharedPrefs.saveData(key: "morningHour", value: time.hour);
+    await SharedPrefs.saveData(key: "morningMinutes", value: time.minute);
     morningHour = time.hour;
     morningMinute = time.minute;
-      LocalNotificationService.showScheduleNotificationForAzan(
-                    id: 10,
-                    body: "اذكار الصباح",
-                    hour: await SharedPrefs.getData(key: "morningHour"),
-                    minute: await SharedPrefs.getData(key: "morningMinutes"),
-                  );
+    LocalNotificationService.showScheduleNotificationForAzan(
+      id: 10,
+      body: "اذكار الصباح",
+      hour: await SharedPrefs.getData(key: "morningHour"),
+      minute: await SharedPrefs.getData(key: "morningMinutes"),
+    );
     emit(CheckNotificationState());
-
   }
-  Future changeTimeOfEveningNotification(TimeOfDay time) async{
-    await SharedPrefs.saveData(
-      key: "eveningHour",
-      value: time.hour,
-    );
-    await SharedPrefs.saveData(
-      key: "eveningMinutes",
-      value: time.minute,
-    );
+
+  Future changeTimeOfEveningNotification(TimeOfDay time) async {
+    await SharedPrefs.saveData(key: "eveningHour", value: time.hour);
+    await SharedPrefs.saveData(key: "eveningMinutes", value: time.minute);
     eveningHour = time.hour;
     eveningMinute = time.minute;
-      LocalNotificationService.showScheduleNotificationForAzan(
-                    id: 11,
-                    body: "اذكار المساء",
-                    hour: await SharedPrefs.getData(key: "eveningHour"),
-                    minute: await SharedPrefs.getData(key: "eveningMinutes"),
-                  );
+    LocalNotificationService.showScheduleNotificationForAzan(
+      id: 11,
+      body: "اذكار المساء",
+      hour: await SharedPrefs.getData(key: "eveningHour"),
+      minute: await SharedPrefs.getData(key: "eveningMinutes"),
+    );
     emit(CheckNotificationState());
-
   }
 }

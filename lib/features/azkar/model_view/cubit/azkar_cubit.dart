@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:azkar/features/azkar/model/azkar_repo_interface.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +24,6 @@ class AzkarCubit extends Cubit<AzkarState> {
               emit(SuccessfullyGetAzkar());
             })
             .catchError((error) {
-              log(error.toString());
               emit(ErrorGetAzkar(error.toString()));
             })
         : await azkarRepo
@@ -35,7 +33,6 @@ class AzkarCubit extends Cubit<AzkarState> {
               emit(SuccessfullyGetAzkar());
             })
             .catchError((error) {
-              log(error.toString());
               emit(ErrorGetAzkar(error.toString()));
             });
   }

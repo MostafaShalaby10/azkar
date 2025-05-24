@@ -1,21 +1,21 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveService {
-  static const String _boxName = 'appBox';
   static Future<void> init() async {
     await Hive.initFlutter();
-    await Hive.openBox(_boxName).then((value) {
-      print('Hive initialized and box opened: ${value.isOpen}');
-    });
+    await Hive.openBox("zekr1");
+    await Hive.openBox("zekr2");
+    await Hive.openBox("zekr3");
+   
   }
 
-  Future<void> saveData(String key, int data) async {
-    final box = Hive.box(_boxName);
+  Future<void> saveData(String key, int data, String boxName) async {
+    final box = Hive.box(boxName);
     await box.put(key, data);
   }
 
-  Future<int?> getData(String key) async {
-    final box = Hive.box(_boxName);
+  Future<int?> getData(String key, String boxName) async {
+    final box = Hive.box(boxName);
     return await box.get(key);
   }
 }

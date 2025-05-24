@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:location/location.dart';
 
 import 'api_constants.dart';
 
@@ -8,12 +7,12 @@ class ApiService {
 
   ApiService(this._dio);
 
-  Future getResponse({required LocationData location }) async {
+  Future getResponse({required double latitude, required double longitude}) async {
     return await _dio.get(
       "$baseURL$date",
       queryParameters: {
-        "latitude": location.latitude,
-        "longitude": location.longitude,
+        "latitude": latitude,
+        "longitude": longitude,
       },
     );
   }

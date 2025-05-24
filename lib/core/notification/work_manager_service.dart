@@ -1,20 +1,18 @@
-import 'dart:developer';
 
 import 'package:azkar/core/notification/local_notification_service.dart';
-import 'package:azkar/core/utils/service_locator.dart';
 import 'package:azkar/core/utils/shared_prefrences.dart';
-import 'package:dio/dio.dart';
+import 'package:azkar/features/prayers/model/repos/prayer_repo_imp.dart';
 import 'package:flutter/foundation.dart';
 import 'package:workmanager/workmanager.dart';
 
-import '../networking/api_constants.dart';
+import '../utils/service_locator.dart';
 
 class WorkManagerService {
   void registerMyTask() async {
     await Workmanager().registerPeriodicTask(
       "Azkar",
       "Azkar sabah and massa",
-      frequency: const Duration(minutes: 15),
+      frequency: const Duration(hours: 23),
       constraints: Constraints(networkType: NetworkType.connected),
     );
   }
@@ -37,6 +35,7 @@ class WorkManagerService {
 void actionTask() {
   Workmanager().executeTask((task, data) async {
     // LocalNotificationService.showScheduleNotificationForAzan(1, 10);
+    setupServiceLocator();
     await addNotificationsForAzan();
     await addNotificationForAzkar();
     return Future.value(true);
@@ -44,16 +43,9 @@ void actionTask() {
 }
 
 Future addNotificationsForAzan() async {
-  await Dio()
-      .get(
-        "$baseURL$date",
-        queryParameters: {
-          "latitude": 30.56485437413304,
-          "longitude": 31.022490802531564,
-        },
-      )
+  await getIt<PrayerRepoImp>()
+      .getPrayerTimes()
       .then((value) {
-        log("I'm in");
         LocalNotificationService.showScheduleNotificationForAzan(
           id: 1,
           body: "صلاه الفجر",
@@ -104,24 +96,21 @@ Future addNotificationsForAzan() async {
             value.data["data"]["timings"]['Isha'].split(":").last,
           ),
         );
-     
-      })
-      .catchError((error) {
-        log(error.toString());
-      });
+      }
+      );
 }
 
 Future addNotificationForAzkar() async {
   LocalNotificationService.showScheduleNotificationForAzan(
     id: 10,
     body: " اذكار الصباح",
-    hour: await SharedPrefs.getData(key: "morningHour") ?? 19,
+    hour: await SharedPrefs.getData(key: "morningHour") ?? 7,
     minute: await SharedPrefs.getData(key: "morningMinutes") ?? 0,
   );
   LocalNotificationService.showScheduleNotificationForAzan(
     id: 11,
     body: " اذكار المساء",
-    hour: await SharedPrefs.getData(key: "eveningHour") ?? 21,
+    hour: await SharedPrefs.getData(key: "eveningHour") ?? 19,
     minute: await SharedPrefs.getData(key: "eveningMinutes") ?? 0,
   );
 }

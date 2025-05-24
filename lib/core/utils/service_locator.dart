@@ -9,7 +9,7 @@ import '../networking/api_Service.dart';
 import 'hive_service.dart';
 
 final getIt = GetIt.instance;
-void setup() {
+void setupServiceLocator() {
   getIt.registerLazySingleton(() => Dio());
   getIt.registerLazySingleton(() => ApiService(getIt<Dio>()));
   getIt.registerLazySingleton(() => HiveService());
@@ -17,4 +17,6 @@ void setup() {
   getIt.registerLazySingleton(() => Workmanager());
   getIt.registerLazySingleton(() => PrayerRepoImp(getIt<ApiService>()));
   getIt.registerLazySingleton(() => SebhaRepoImp(getIt<HiveService>()));
+  // getIt.registerLazySingleton<PrayerRepoImp>(() => PrayerRepoImp(getIt<ApiService>()));
+
 }

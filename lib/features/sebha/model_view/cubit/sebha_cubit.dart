@@ -10,12 +10,14 @@ class SebhaCubit extends Cubit<SebhaState> {
   final SebhaRepoInterface _sebhaRepo;
   SebhaCubit(this._sebhaRepo) : super(SebhaInitial());
   static SebhaCubit get(context) => BlocProvider.of(context);
-  int counter = 0;
+  int zekr1counter = 0;
+  int zekr2counter = 0;
+  int zekr3counter = 0;
 
-  Future addCounter(int counter) async {
+  Future addCounter(int counter, String boxName) async {
     emit(LoadingAddCounterState());
     return _sebhaRepo
-        .addCounter(key: "count", value: counter)
+        .addCounter(key: "count", value: counter, boxName: boxName)
         .then((value) {
           emit(SuccessfullyAddCounterState());
         })
@@ -25,13 +27,18 @@ class SebhaCubit extends Cubit<SebhaState> {
         });
   }
 
-  Future getCounter() async {
+  Future getCounter({required String boxName}) async {
     emit(LoadingGetCounterState());
     return _sebhaRepo
-        .getCounter(key: "count")
+        .getCounter(key: "count", boxName: boxName)
         .then((value) {
-          counter = value;
-          log(counter.toString());
+          if (boxName == "zekr1") {
+            zekr1counter = value??0;
+          } else if (boxName == "zekr2") {
+            zekr2counter = value??0;
+          } else if (boxName == "zekr3") {
+            zekr3counter = value??0;
+          }
           emit(SuccessfullyGetCounterState());
         })
         .catchError((error) {
@@ -40,12 +47,12 @@ class SebhaCubit extends Cubit<SebhaState> {
         });
   }
 
-  Future resetCounter() async {
+  Future resetCounter({required String boxName}) async {
     emit(LoadingResetCounterState());
     return _sebhaRepo
-        .resetCounter(key: "count")
+        .resetCounter(key: "count", boxName: boxName)
         .then((value) {
-          counter = 0;
+          zekr1counter = 0;
           emit(SuccessfullyResetCounterState());
         })
         .catchError((error) {

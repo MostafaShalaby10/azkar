@@ -14,33 +14,121 @@ class SebhaView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SebhaCubit(getIt<SebhaRepoImp>())..getCounter(),
+      create:
+          (context) =>
+              SebhaCubit(getIt<SebhaRepoImp>())
+                ..getCounter(boxName: "zekr1")
+                ..getCounter(boxName: "zekr2")
+                ..getCounter(boxName: "zekr3"),
       child: BlocBuilder<SebhaCubit, SebhaState>(
         builder: (context, state) {
           var sebhaCubit = SebhaCubit.get(context);
           return Scaffold(
-            body: SafeArea(
-              child: Column(
-                spacing: 20.h,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset("assets/moshaf.png"),
+            body: Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset(
+                  "assets/tsbeh.jpg",
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
 
-                  CustomTextWidget(
-                    text: sebhaCubit.counter.toString(),
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                  ),
+                Column(
+                  spacing: 20.h,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            sebhaCubit.resetCounter(boxName: "zekr1");
+                            sebhaCubit.getCounter(boxName: "zekr1");
+                          },
+                          icon: const Icon(Icons.refresh),
+                        ),
 
-                  CustomButtonWidget(
-                    text: "حسبي الله و نعم الوكيل",
-                    onPressed: () {
-                      sebhaCubit.addCounter(sebhaCubit.counter + 1);
-                      sebhaCubit.getCounter();
-                    },
-                  ),
-                ],
-              ),
+                        CustomTextWidget(
+                          text: sebhaCubit.zekr1counter.toString(),
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          textColor: Colors.black87,
+                        ),
+
+                        CustomButtonWidget(
+                          text: "سبحان الله",
+                          onPressed: () {
+                            sebhaCubit.addCounter(
+                              sebhaCubit.zekr1counter + 1,
+                              "zekr1",
+                            );
+                            sebhaCubit.getCounter(boxName: "zekr1");
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            sebhaCubit.resetCounter(boxName: "zekr2");
+                            sebhaCubit.getCounter(boxName: "zekr2");
+                          },
+                          icon: const Icon(Icons.refresh),
+                        ),
+                        CustomTextWidget(
+                          text: sebhaCubit.zekr2counter.toString(),
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          textColor: Colors.black87,
+                        ),
+
+                        CustomButtonWidget(
+                          text: "الحمد لله",
+                          onPressed: () {
+                            sebhaCubit.addCounter(
+                              sebhaCubit.zekr2counter + 1,
+                              "zekr2",
+                            );
+                            sebhaCubit.getCounter(boxName: "zekr2");
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            sebhaCubit.resetCounter(boxName: "zekr3");
+                            sebhaCubit.getCounter(boxName: "zekr3");
+                          },
+                          icon: const Icon(Icons.refresh),
+                        ),
+                        CustomTextWidget(
+                          text: sebhaCubit.zekr3counter.toString(),
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          textColor: Colors.black87,
+                        ),
+
+                        CustomButtonWidget(
+                          text: "الله أكبر",
+                          onPressed: () {
+                            sebhaCubit.addCounter(
+                              sebhaCubit.zekr3counter + 1,
+                              "zekr3",
+                            );
+                            sebhaCubit.getCounter(boxName: "zekr3");
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           );
         },

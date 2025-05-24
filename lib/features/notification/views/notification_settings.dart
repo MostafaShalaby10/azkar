@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:azkar/core/widgets/custom_text_widget.dart';
 import 'package:azkar/features/notification/model_view/cubit/notification_cubit.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +16,28 @@ class NotificationSettings extends StatelessWidget {
         builder: (context, state) {
           var notificationCubit = NotificationCubit.get(context);
           return Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(
+              title: const CustomTextWidget(
+                text: "Notification Settings",
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+              centerTitle: true,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
+              ),
+            ),
             body:
                 state is CheckNotificationState
                     ? Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          SizedBox(height: 30.h),
                           Row(
                             children: [
                               const CustomTextWidget(
@@ -52,72 +65,142 @@ class NotificationSettings extends StatelessWidget {
                             Column(
                               spacing: 20.h,
                               children: [
-                                InkWell(
-                                  onTap: () async {
-                                    await showTimePicker(
-                                          context: context,
-                                          initialTime: TimeOfDay.now(),
-                                        )
-                                        .then((value) {
-                                          if (value != null) {
-                                            notificationCubit
-                                                .changeTimeOfMorningNotification(
-                                                  value,
-                                                );
-                                          }
-                                        })
-                                        .catchError((error) {
-                                          log(error.toString());
-                                        });
-                                  },
-                                  child: Row(
-                                    children: [
-                                      CustomTextWidget(
-                                        text:
-                                            "${notificationCubit.morningMinute} : ${notificationCubit.morningHour}",
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
+                                SizedBox(height: 20.h),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    InkWell(
+                                      onTap: () async {
+                                        await showTimePicker(
+                                              context: context,
+                                              initialTime: TimeOfDay.now(),
+                                            )
+                                            .then((value) {
+                                              if (value != null) {
+                                                notificationCubit
+                                                    .changeTimeOfEveningNotification(
+                                                      value,
+                                                    );
+                                              }
+                                            })
+                                            .catchError((error) {});
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                            .3,
+                                        height: 100.h,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(
+                                                0.25,
+                                              ),
+                                              spreadRadius: 0,
+                                              blurRadius: 5,
+                                              offset: const Offset(0, 0),
+                                            ),
+                                          ],
+                                          border: Border.all(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            10.r,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.nights_stay_sharp,
+                                              color: Colors.blue,
+                                              size: 30.r,
+                                            ),
+                                            const CustomTextWidget(
+                                              text: "اذكار المساء",
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                            CustomTextWidget(
+                                              text:
+                                                  "${notificationCubit.eveningMinute} : ${notificationCubit.eveningHour}",
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      const Spacer(),
-                                      const CustomTextWidget(
-                                        text: "اذكار الصباح",
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
+                                    ),
+                                    InkWell(
+                                      onTap: () async {
+                                        await showTimePicker(
+                                              context: context,
+                                              initialTime: TimeOfDay.now(),
+                                            )
+                                            .then((value) {
+                                              if (value != null) {
+                                                notificationCubit
+                                                    .changeTimeOfMorningNotification(
+                                                      value,
+                                                    );
+                                              }
+                                            })
+                                            .catchError((error) {});
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                            .3,
+                                        height: 100.h,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(
+                                                0.25,
+                                              ),
+                                              spreadRadius: 0,
+                                              blurRadius: 5,
+                                              offset: const Offset(0, 0),
+                                            ),
+                                          ],
+                                          border: Border.all(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            10.r,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.sunny,
+                                              color: Colors.yellow,
+                                              size: 30.r,
+                                            ),
+                                            const CustomTextWidget(
+                                              text: "اذكار الصباح",
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                            CustomTextWidget(
+                                              text:
+                                                  "${notificationCubit.morningMinute} : ${notificationCubit.morningHour}",
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () async{
-                                      await showTimePicker(
-                                          context: context,
-                                          initialTime: TimeOfDay.now(),
-                                        )
-                                        .then((value) {
-                                            if (value != null) {
-                                              notificationCubit.changeTimeOfEveningNotification(value);
-                                            }
-                                        })
-                                        .catchError((error) {
-                                          log(error.toString());
-                                        });
-                                  },
-                                  child: Row(
-                                    children: [
-                                      CustomTextWidget(
-                                        text:
-                                            "${notificationCubit.eveningMinute} : ${notificationCubit.eveningHour}",
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      const Spacer(),
-                                      const CustomTextWidget(
-                                        text: "اذكار المساء",
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

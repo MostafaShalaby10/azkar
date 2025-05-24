@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:azkar/core/utils/shared_prefrences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -69,20 +68,25 @@ class LocalNotificationService {
     required int hour,
     required int minute,
   }) async {
-    NotificationDetails notificationDetails = const NotificationDetails(
+     AndroidNotificationChannel channel =  AndroidNotificationChannel(
+      "$id",
+      "High Importance Notifications",
+      importance: Importance.max,
+    );
+    NotificationDetails notificationDetails = NotificationDetails(
       android: AndroidNotificationDetails(
-        "1",
-        "High Importance Notifications",
+        channel.id,
+        channel.name,
         importance: Importance.max,
         priority: Priority.high,
         icon: '@mipmap/ic_launcher',
-        // sound: RawResourceAndroidNotificationSound("azan"),
-        // playSound: true,
-        // enableVibration: true,
-        // fullScreenIntent: true,
-        // channelDescription: "channelDescription",
+        // sound: const RawResourceAndroidNotificationSound("azan1"),
+        playSound: true,
+        enableVibration: true,
+        fullScreenIntent: true,
+        channelDescription: "channelDescription",
       ),
-      iOS: DarwinNotificationDetails(
+      iOS: const DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
@@ -102,17 +106,10 @@ class LocalNotificationService {
     if (scheduleTime.isBefore(currentTime)) {
       scheduleTime = scheduleTime.add(const Duration(days: 1));
     }
-    log("-----------------------------$body-----------------------------");
-    log(currentTime.day.toString());
-    log(currentTime.hour.toString());
-    log(currentTime.minute.toString());
-    log("-----------------------------");
-    log(scheduleTime.day.toString());
-    log(scheduleTime.hour.toString());
-    log(scheduleTime.minute.toString());
+    
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
-      "الصلاه عماد الدين",
+      "وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ",
       body,
       scheduleTime,
       notificationDetails,
