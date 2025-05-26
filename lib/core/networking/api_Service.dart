@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 import 'api_constants.dart';
@@ -14,6 +16,10 @@ class ApiService {
         "latitude": latitude,
         "longitude": longitude,
       },
-    );
+    ).catchError((error)
+     {
+      log("++++++++++++++++++++++++++++++++++++++++++++${error.toString()}");
+
+    });
   }
 }

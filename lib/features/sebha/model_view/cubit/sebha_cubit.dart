@@ -33,11 +33,11 @@ class SebhaCubit extends Cubit<SebhaState> {
         .getCounter(key: "count", boxName: boxName)
         .then((value) {
           if (boxName == "zekr1") {
-            zekr1counter = value??0;
+            zekr1counter = value ?? 0;
           } else if (boxName == "zekr2") {
-            zekr2counter = value??0;
+            zekr2counter = value ?? 0;
           } else if (boxName == "zekr3") {
-            zekr3counter = value??0;
+            zekr3counter = value ?? 0;
           }
           emit(SuccessfullyGetCounterState());
         })
@@ -52,7 +52,6 @@ class SebhaCubit extends Cubit<SebhaState> {
     return _sebhaRepo
         .resetCounter(key: "count", boxName: boxName)
         .then((value) {
-          zekr1counter = 0;
           emit(SuccessfullyResetCounterState());
         })
         .catchError((error) {

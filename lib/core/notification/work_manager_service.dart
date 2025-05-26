@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:azkar/core/notification/local_notification_service.dart';
 import 'package:azkar/core/utils/shared_prefrences.dart';
 import 'package:azkar/features/prayers/model/repos/prayer_repo_imp.dart';
@@ -19,6 +21,7 @@ class WorkManagerService {
 
   Future init() async {
     await LocalNotificationService.init();
+
     await Workmanager().initialize(actionTask, isInDebugMode: !kReleaseMode);
     registerMyTask();
   }
@@ -97,7 +100,9 @@ Future addNotificationsForAzan() async {
           ),
         );
       }
-      );
+      ).catchError((error){
+        log("-------------------------------${error.toString()}");
+  });
 }
 
 Future addNotificationForAzkar() async {

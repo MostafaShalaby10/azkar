@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:azkar/core/networking/api_Service.dart';
 import 'package:azkar/core/utils/shared_prefrences.dart';
 import 'package:azkar/features/prayers/model/repos/prayer_repo_interface.dart';
@@ -14,6 +16,9 @@ class PrayerRepoImp implements PrayerRepoInterface {
       // longitude: await SharedPrefs.getData(key: "lng"),
       latitude: 30.0444,
       longitude: 31.2357,
-    );
+    ).catchError((error){
+      log("********************************************${error.toString()}");
+
+    });
   }
 }
