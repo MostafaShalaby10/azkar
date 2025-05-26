@@ -27,3 +27,11 @@
 # Retain generic signatures of TypeToken and its subclasses with R8 version 3.0 and higher.
 -keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
 -keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
+
+# --- Added for your app's models and location plugin ---
+
+# Keep all classes and members in your app's package (replace with your actual package if different)
+-keep class com.example.azkar.** { *; }
+
+# Keep all classes for the location plugin
+-keep class com.lyokone.location.** { *; }

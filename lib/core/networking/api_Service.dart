@@ -18,7 +18,7 @@ class ApiService {
       },
     ).catchError((error)
      {
-      log("++++++++++++++++++++++++++++++++++++++++++++${error.toString()}");
+      log(error.toString());
 
     });
   }

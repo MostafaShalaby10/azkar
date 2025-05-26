@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:azkar/core/notification/local_notification_service.dart';
@@ -21,7 +20,6 @@ class WorkManagerService {
 
   Future init() async {
     await LocalNotificationService.init();
-
     await Workmanager().initialize(actionTask, isInDebugMode: !kReleaseMode);
     registerMyTask();
   }
@@ -38,6 +36,8 @@ class WorkManagerService {
 void actionTask() {
   Workmanager().executeTask((task, data) async {
     // LocalNotificationService.showScheduleNotificationForAzan(1, 10);
+    await SharedPrefs.init(); // <-- Add this line
+
     setupServiceLocator();
     await addNotificationsForAzan();
     await addNotificationForAzkar();
@@ -99,10 +99,10 @@ Future addNotificationsForAzan() async {
             value.data["data"]["timings"]['Isha'].split(":").last,
           ),
         );
-      }
-      ).catchError((error){
-        log("-------------------------------${error.toString()}");
-  });
+      })
+      .catchError((error) {
+        log(error.toString());
+      });
 }
 
 Future addNotificationForAzkar() async {

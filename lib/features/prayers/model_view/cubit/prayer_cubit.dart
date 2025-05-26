@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:azkar/features/prayers/model/repos/prayer_repo_interface.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -20,9 +22,11 @@ class PrayerCubit extends Cubit<PrayerState> {
         .getPrayerTimes()
         .then((value) {
           prayerTimes = value.data["data"]["timings"];
+          log(prayerTimes.toString());
           emit(SuccessfullyGetPrayerTime());
         })
         .catchError((error) {
+          log(error.toString());
           emit(ErrorGetPrayerTime(error: error.toString()));
         });
   }

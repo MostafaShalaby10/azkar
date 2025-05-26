@@ -34,33 +34,39 @@ class PrayerTimeView extends StatelessWidget {
                         PrayerContainer(
                           prayerName: "الفجر",
                           prayerTime:
-                              PrayerCubit.get(context).prayerTimes["Fajr"],
+                              PrayerCubit.get(context).prayerTimes["Fajr"] ??
+                              "00:00",
                         ),
                         PrayerContainer(
                           prayerName: "الشروق",
                           prayerTime:
-                              PrayerCubit.get(context).prayerTimes["Sunrise"],
+                              PrayerCubit.get(context).prayerTimes["Sunrise"] ??
+                              "00:00",
                         ),
                         PrayerContainer(
                           prayerName: "الظهر",
                           prayerTime:
-                              PrayerCubit.get(context).prayerTimes["Dhuhr"],
+                              PrayerCubit.get(context).prayerTimes["Dhuhr"] ??
+                              "00:00",
                         ),
                         PrayerContainer(
                           prayerName: "العصر",
                           prayerTime:
-                              PrayerCubit.get(context).prayerTimes["Asr"],
+                              PrayerCubit.get(context).prayerTimes["Asr"] ??
+                              "00:00",
                         ),
                         PrayerContainer(
                           prayerName: "المغرب",
                           prayerTime:
-                              PrayerCubit.get(context).prayerTimes["Maghrib"],
+                              PrayerCubit.get(context).prayerTimes["Maghrib"] ??
+                              "00:00",
                         ),
 
                         PrayerContainer(
                           prayerName: "العشاء",
                           prayerTime:
-                              PrayerCubit.get(context).prayerTimes["Isha"],
+                              PrayerCubit.get(context).prayerTimes["Isha"] ??
+                              "00:00",
                         ),
                       ],
                     )

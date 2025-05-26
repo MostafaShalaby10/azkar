@@ -100,7 +100,7 @@ class LocalNotificationService {
         presentSound: true,
       ),
     );
-        tz.initializeTimeZones();
+    tz.initializeTimeZones();
 
     tz.setLocalLocation(tz.getLocation("Africa/Cairo"));
     var currentTime = tz.TZDateTime.now(tz.local);
@@ -115,17 +115,17 @@ class LocalNotificationService {
     if (scheduleTime.isBefore(currentTime)) {
       scheduleTime = scheduleTime.add(const Duration(days: 1));
     }
-    log(
-      "**********************************************$body*************************",
-    );
-    log(currentTime.day.toString());
-    log(currentTime.hour.toString());
-    log(currentTime.minute.toString());
-    log("-----------------------------");
-    log(scheduleTime.day.toString());
-    log(scheduleTime.hour.toString());
-    log(scheduleTime.minute.toString());
-    log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    // log(
+    //   "**********************************************$body*************************",
+    // );
+    // log(currentTime.day.toString());
+    // log(currentTime.hour.toString());
+    // log(currentTime.minute.toString());
+    // log("-----------------------------");
+    // log(scheduleTime.day.toString());
+    // log(scheduleTime.hour.toString());
+    // log(scheduleTime.minute.toString());
+    // log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       "وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ",
@@ -153,7 +153,6 @@ class LocalNotificationService {
     );
     tz.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation("Africa/Cairo"));
-    log("asjads");
     await flutterLocalNotificationsPlugin.zonedSchedule(
       30,
       "title",

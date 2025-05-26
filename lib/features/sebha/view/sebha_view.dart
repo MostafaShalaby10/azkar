@@ -179,6 +179,7 @@ class SebhaView extends StatelessWidget {
                                     sebhaCubit.clearDB(boxName: "zekr2");
                                     sebhaCubit.clearDB(boxName: "zekr3");
                                     sebhaCubit.resetCounter();
+                                    
                                     Navigator.of(dialogContext).pop(
                                       'Cancelled',
                                     ); // Dismiss and pass a value
