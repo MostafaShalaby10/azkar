@@ -5,6 +5,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:flutter_timezone/flutter_timezone.dart';
 
 class LocalNotificationService {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -99,7 +100,8 @@ class LocalNotificationService {
         presentSound: true,
       ),
     );
-    tz.initializeTimeZones();
+        tz.initializeTimeZones();
+
     tz.setLocalLocation(tz.getLocation("Africa/Cairo"));
     var currentTime = tz.TZDateTime.now(tz.local);
     var scheduleTime = tz.TZDateTime(

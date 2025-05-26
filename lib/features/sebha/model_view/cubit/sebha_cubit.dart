@@ -10,11 +10,20 @@ class SebhaCubit extends Cubit<SebhaState> {
   final SebhaRepoInterface _sebhaRepo;
   SebhaCubit(this._sebhaRepo) : super(SebhaInitial());
   static SebhaCubit get(context) => BlocProvider.of(context);
-  int zekr1counter = 0;
-  int zekr2counter = 0;
-  int zekr3counter = 0;
+  int zekr1counterDB = 0;
+  int zekr1counterLocal = 0;
+  int zekr2counterDB = 0;
+  int zekr2counterLocal = 0;
+  int zekr3counterDB = 0;
+  int zekr3counterLocal = 0;
 
-  Future addCounter(int counter, String boxName) async {
+  int counter = 1;
+  void changeIndex(int index) {
+    counter = index;
+    emit(ChangeIndexState());
+  }
+
+  Future addCounterOnDataBase(int counter, String boxName) async {
     emit(LoadingAddCounterState());
     return _sebhaRepo
         .addCounter(key: "count", value: counter, boxName: boxName)
@@ -33,11 +42,14 @@ class SebhaCubit extends Cubit<SebhaState> {
         .getCounter(key: "count", boxName: boxName)
         .then((value) {
           if (boxName == "zekr1") {
-            zekr1counter = value ?? 0;
+            zekr1counterDB = value ?? 0;
+            log("zekr1counterDB: $zekr1counterDB");
           } else if (boxName == "zekr2") {
-            zekr2counter = value ?? 0;
+            zekr2counterDB = value ?? 0;
+            log("zekr2counterDB: $zekr2counterDB");
           } else if (boxName == "zekr3") {
-            zekr3counter = value ?? 0;
+            zekr3counterDB = value ?? 0;
+            log("zekr3counterDB: $zekr3counterDB");
           }
           emit(SuccessfullyGetCounterState());
         })
@@ -47,11 +59,19 @@ class SebhaCubit extends Cubit<SebhaState> {
         });
   }
 
-  Future resetCounter({required String boxName}) async {
+  void resetCounter() {
+    zekr1counterLocal = 0;
+    zekr2counterLocal = 0;
+    zekr3counterLocal = 0;
+    emit(ChangeIndexState());
+  }
+
+  Future clearDB({required String boxName}) async {
     emit(LoadingResetCounterState());
     return _sebhaRepo
         .resetCounter(key: "count", boxName: boxName)
         .then((value) {
+          zekr1counterLocal = 0;
           emit(SuccessfullyResetCounterState());
         })
         .catchError((error) {

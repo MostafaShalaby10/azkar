@@ -1,8 +1,6 @@
-import 'dart:developer';
 import 'package:azkar/core/notification/work_manager_service.dart';
 import 'package:azkar/core/utils/hive_service.dart';
 import 'package:azkar/features/home/view/home_view.dart';
-import 'package:azkar/test_veiw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,6 +24,7 @@ void main(List<String> args) async {
   setupServiceLocator();
   // await getUserLocation();
     await SharedPrefs.init();
+
 
   Future.wait([
     WorkManagerService().init(),

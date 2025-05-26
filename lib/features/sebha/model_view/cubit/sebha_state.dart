@@ -4,6 +4,7 @@ part of 'sebha_cubit.dart';
 sealed class SebhaState {}
 
 final class SebhaInitial extends SebhaState {}
+final class ChangeIndexState extends SebhaState {}
 
 final class LoadingAddCounterState extends SebhaState {}
 

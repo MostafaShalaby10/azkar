@@ -6,7 +6,7 @@ import 'package:azkar/core/utils/shared_prefrences.dart';
 import 'package:azkar/features/prayers/model/repos/prayer_repo_imp.dart';
 import 'package:flutter/foundation.dart';
 import 'package:workmanager/workmanager.dart';
-
+import 'package:timezone/data/latest.dart' as tz;
 import '../utils/service_locator.dart';
 
 class WorkManagerService {
