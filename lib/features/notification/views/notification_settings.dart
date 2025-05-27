@@ -35,6 +35,7 @@ class NotificationSettings extends StatelessWidget {
                     ? Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(height: 30.h),
@@ -204,6 +205,18 @@ class NotificationSettings extends StatelessWidget {
                                 ),
                               ],
                             ),
+
+                          SizedBox(height: 20.h),
+                          const Center(
+                            child: CustomTextWidget(
+                              textAlign: TextAlign.center,
+                              text:
+                                  "يارب تشتغل في شركه كبيره يا مصطفى يا حبيبي😘",
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              textColor: Colors.blue,
+                            ),
+                          ),
                         ],
                       ),
                     )

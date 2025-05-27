@@ -4,9 +4,13 @@ import 'package:azkar/core/notification/local_notification_service.dart';
 import 'package:azkar/core/utils/shared_prefrences.dart';
 import 'package:azkar/features/prayers/model/repos/prayer_repo_imp.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import '../utils/service_locator.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+
 
 class WorkManagerService {
   void registerMyTask() async {
@@ -36,9 +40,13 @@ class WorkManagerService {
 void actionTask() {
   Workmanager().executeTask((task, data) async {
     // LocalNotificationService.showScheduleNotificationForAzan(1, 10);
+    WidgetsFlutterBinding.ensureInitialized();
+    // DartPluginRegistrant.ensureInitialized();
     await SharedPrefs.init(); // <-- Add this line
 
     setupServiceLocator();
+
+
     await addNotificationsForAzan();
     await addNotificationForAzkar();
     return Future.value(true);
@@ -106,13 +114,13 @@ Future addNotificationsForAzan() async {
 }
 
 Future addNotificationForAzkar() async {
-  LocalNotificationService.showScheduleNotificationForAzan(
+  LocalNotificationService.showScheduleNotificationForAzkar(
     id: 10,
     body: " اذكار الصباح",
     hour: await SharedPrefs.getData(key: "morningHour") ?? 7,
     minute: await SharedPrefs.getData(key: "morningMinutes") ?? 0,
   );
-  LocalNotificationService.showScheduleNotificationForAzan(
+  LocalNotificationService.showScheduleNotificationForAzkar(
     id: 11,
     body: " اذكار المساء",
     hour: await SharedPrefs.getData(key: "eveningHour") ?? 19,

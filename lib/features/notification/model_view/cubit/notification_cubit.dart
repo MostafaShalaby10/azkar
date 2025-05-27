@@ -74,7 +74,7 @@ class NotificationCubit extends Cubit<NotificationState> {
     await SharedPrefs.saveData(key: "morningMinutes", value: time.minute);
     morningHour = time.hour;
     morningMinute = time.minute;
-    LocalNotificationService.showScheduleNotificationForAzan(
+    LocalNotificationService.showScheduleNotificationForAzkar(
       id: 10,
       body: "اذكار الصباح",
       hour: await SharedPrefs.getData(key: "morningHour"),
@@ -88,7 +88,7 @@ class NotificationCubit extends Cubit<NotificationState> {
     await SharedPrefs.saveData(key: "eveningMinutes", value: time.minute);
     eveningHour = time.hour;
     eveningMinute = time.minute;
-    LocalNotificationService.showScheduleNotificationForAzan(
+    LocalNotificationService.showScheduleNotificationForAzkar(
       id: 11,
       body: "اذكار المساء",
       hour: await SharedPrefs.getData(key: "eveningHour"),

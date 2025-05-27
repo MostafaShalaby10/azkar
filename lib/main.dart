@@ -1,14 +1,11 @@
 import 'dart:developer';
-
 import 'package:azkar/core/notification/work_manager_service.dart';
 import 'package:azkar/core/utils/hive_service.dart';
 import 'package:azkar/features/home/view/home_view.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:location/location.dart';
 import 'core/utils/service_locator.dart';
 import 'core/utils/shared_prefrences.dart';
 
@@ -27,35 +24,15 @@ void main(List<String> args) async {
     ),
   );
   setupServiceLocator();
-  // await getUserLocation();
   await SharedPrefs.init();
-
-  await Location()
-      .getLocation()
-      .then((value) async {
-        await SharedPrefs.saveData(
-          key: "latitude",
-          value: value.latitude,
-        );
-        await SharedPrefs.saveData(
-          key: "longitude",
-          value: value.longitude,
-        );
-      })
-      .catchError((error) {
-        // Handle error if location is not available
-        print("Error getting location: $error");
-      });
+  
 
   Future.wait([
     WorkManagerService().init(),
     HiveService.init(),
   ]);
   runApp(
-    DevicePreview(
-      enabled: !kReleaseMode, // Set to true to enable Device Preview
-      builder: (context) => const MyApp(),
-    ),
+    const MyApp(),
   );
 }
 
