@@ -1,16 +1,20 @@
-# azkar
+# Azkar App
 
-A new Flutter project.
+Azkar App is a Flutter-based Islamic application that provides **Morning & Evening Azkar**, **Prayer Times**, **Sebha Counter**, and **Custom Local Notifications** for each prayer with user-defined times and sounds.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- 🌅 **Morning & Evening Azkar**: Set reminders for daily supplications.
+- 🕋 **Prayer Times**: Accurate prayer time notifications.
+- 📿 **Sebha Counter**: Digital tasbih for counting your dhikr.
+- 🔔 **Custom Notifications**: Set personalized notification sounds and timings for azkar.
+- 🔄 **Background Tasks**: Ensure notifications and reminders even when the app is closed.
 
-A few resources to get you started if this is your first Flutter project:
+## Technologies Used
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Flutter BLoC** – State management.
+- **Dio** – Networking (handling API calls).
+- **WorkManager** – Background task scheduling.
+- **GetIt** – Dependency injection.
+- **LocalNotification** – Push notifications with custom sounds.
+- **SharedPreferences** – Persistent data storage.
